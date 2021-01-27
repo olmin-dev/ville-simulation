@@ -34,7 +34,7 @@ public class Habitant : MonoBehaviour
         NavMesh.SamplePosition(agent.transform.position, out hit, 1.0f, NavMesh.AllAreas);
 
         DayNightCycle day = GameObject.Find("Plane").GetComponent(typeof(DayNightCycle)) as DayNightCycle;
-        if (day.currentTimeOfDay > 0.7f || day.currentTimeOfDay < 0.2f && !inside == house)
+        if (day.currentTimeOfDay > 0.7f && inside != house)
         {
             if (inside == work)
             {
@@ -42,7 +42,7 @@ public class Habitant : MonoBehaviour
             }
             agent.destination = HouseSpawn;
         }
-        if (day.currentTimeOfDay > 0.2f && day.currentTimeOfDay < 0.75f && !inside == work)
+        if (day.currentTimeOfDay > 0.2f && inside != work)
         {
             if (inside == house)
             {
