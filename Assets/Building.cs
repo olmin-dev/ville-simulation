@@ -29,6 +29,7 @@ public class Building : MonoBehaviour
         }
         world_obj.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0, nb_etages, 3f);
         position = world_obj.transform.GetChild(0).gameObject.transform.position;
+        this.transform.GetChild(1).GetComponent<Light>().transform.localPosition = new Vector3(0, nb_etages * 2 + 5, 3f);
         occupants = new List<Habitant>();
         people_inside = new List<Habitant>();
     }
@@ -79,11 +80,18 @@ public class Building : MonoBehaviour
         rend.enabled = false;
         Collider collider = habitant.GetComponent<Collider>();
         collider.enabled = false;
-
+        if (this.transform.GetChild(1).GetComponent<Light>().intensity < 1)
+        {
+            this.transform.GetChild(1).GetComponent<Light>().intensity += 0.35f;
+        }
     }
 
     public void exit(Habitant habitant)
     {
+        if (this.transform.GetChild(1).GetComponent<Light>().intensity > 0)
+        {
+            this.transform.GetChild(1).GetComponent<Light>().intensity -= 0.35f;
+        }
         if (!people_inside.Remove(habitant))
         {
             return;
